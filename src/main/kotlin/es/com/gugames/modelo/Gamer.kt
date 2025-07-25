@@ -1,5 +1,7 @@
 package es.com.gugames.modelo
 
+import kotlin.random.Random
+
 data class Gamer(var nombre: String, var email: String) {
     var fechaNacimiento: String? = null
     var usuario: String? = null
@@ -16,6 +18,7 @@ data class Gamer(var nombre: String, var email: String) {
     }
 
     fun crearIdInterno(){
-        val numero =
+        val numero = Random.nextInt(10000)
+        val tag = String.format("%04d", numero)
     }
 }
