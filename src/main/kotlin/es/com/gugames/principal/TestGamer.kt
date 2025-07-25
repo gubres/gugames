@@ -2,7 +2,7 @@ import es.com.gugames.modelo.Gamer
 
 
 fun main() {
-    val gamer1 = Gamer("Gustavo", "gustavo@mail.com")
+    val gamer1 = Gamer("Gustavo", "gustavo@l.com")
     println(gamer1)
 
     val gamer2 = Gamer("Mirena", "mirenita22@mail.com", "01/09/1998", "mirenita22")
@@ -11,8 +11,11 @@ fun main() {
     gamer1.let {
         it.fechaNacimiento = "28/09/1992"
         it.usuario = "gubres"
-        it.idInterno = "gubres#123"
+    }.also {
+        println(gamer1.idInterno )
     }
 
-    println(gamer1 )
+    println(gamer1)
+    gamer1.usuario = "gugu"
+    println(gamer1)
 }
