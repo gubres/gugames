@@ -3,6 +3,7 @@ package es.com.gugames.principal
 import es.com.gugames.modelo.Gamer
 import es.com.gugames.modelo.Juego
 import es.com.gugames.servicios.ConsumoApi
+import transformarEnEdad
 import java.util.*
 
 fun main() {
@@ -11,6 +12,8 @@ fun main() {
     val gamer = Gamer.crearGamer(lectura)
     println("Cadastro concluido con exito. Datos del gamer:")
     println(gamer)
+
+    println("Edad del gamer: " + gamer.fechaNacimiento?.transformarEnEdad())
 
     do {
         println("Inserte el codigo del juego para búsqueda: ")
