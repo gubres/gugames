@@ -1,5 +1,6 @@
 package es.com.gugames.modelo
 
+import java.time.LocalDate
 import java.util.Scanner
 import kotlin.random.Random
 
@@ -49,6 +50,10 @@ data class Gamer(var nombre: String, var email: String) {
         } else{
             throw IllegalArgumentException("Email inválido")
         }
+    }
+
+    fun alquilaJuego(juego: Juego, periodo: Periodo): Alquiler {
+        return Alquiler(this, juego, periodo)
     }
 
     companion object {
