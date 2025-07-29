@@ -1,10 +1,20 @@
 package es.com.gugames.modelo
 
+import com.google.gson.annotations.Expose
+
 data class Juego (
-    val titulo: String,
-    val portada: String) {
+    @Expose val titulo: String,
+    @Expose val portada: String): Recomendado {
     var descripcion: String? = null
     var precio = 0.0
+
+    private val listadoNotas = mutableListOf<Int>()
+    override val media: Double
+        get() = listadoNotas.average()
+
+    override fun recomendar(nota: Int) {
+        listadoNotas.add(nota)
+    }
 
     constructor(
         titulo: String,
@@ -21,7 +31,8 @@ data class Juego (
                 "Portada = $portada \n" +
                 "Precio: $precio \n" +
                 "Descripcion = $descripcion" +
-                "Precio: $precio"
+                "Precio: $precio \n" +
+                "Reputación: $media"
 
     }
 

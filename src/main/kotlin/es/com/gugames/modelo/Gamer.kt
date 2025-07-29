@@ -1,10 +1,9 @@
 package es.com.gugames.modelo
 
-import java.time.LocalDate
 import java.util.Scanner
 import kotlin.random.Random
 
-data class Gamer(var nombre: String, var email: String) {
+data class Gamer(var nombre: String, var email: String): Recomendado {
     var fechaNacimiento: String? = null
     var usuario: String? = null
         set(value) {
@@ -16,8 +15,31 @@ data class Gamer(var nombre: String, var email: String) {
     var idInterno: String? = null
         private set
 
+    var plano: Plano = PlanoSuelto("BRONCE")
+
     val juegosBuscados = mutableListOf<Juego?>()
 
+    val juegosAlquilados = mutableListOf<Alquiler>()
+
+    private val listadoNotas = mutableListOf<Int>()
+
+    val juegosRecomendados = mutableListOf<Juego>()
+
+    override val media: Double
+        get() = listadoNotas.average()
+
+    override fun recomendar(nota: Int) {
+        if (nota < 1 || nota > 10) {
+            println("Nota invalida. Inserte una nota entre 1 y 10")
+        } else {
+            listadoNotas.add(nota)
+        }
+    }
+
+    fun recomendarJuego(juego: Juego, nota: Int) {
+        juego.recomendar(nota)
+        juegosRecomendados.add(juego)
+    }
     constructor(nombre: String, email: String, fechaNacimiento: String, usuario: String):
         this(nombre, email){
             this.fechaNacimiento = fechaNacimiento
@@ -33,7 +55,13 @@ data class Gamer(var nombre: String, var email: String) {
     }
 
     override fun toString(): String {
-        return "Gamer(nombre='$nombre', email='$email', fechaNacimiento=$fechaNacimiento, usuario=$usuario, idInterno=$idInterno)"
+        return "Gamer: \n" +
+                "Nombre: $nombre \n"+
+                "Email: $email \n" +
+                "Fecha Nacimiento: $fechaNacimiento \n" +
+                "Usuario: $usuario \n" +
+                "Id Interno: $idInterno \n" +
+                "Reputación: $media."
     }
 
     fun crearIdInterno(){
@@ -53,8 +81,19 @@ data class Gamer(var nombre: String, var email: String) {
     }
 
     fun alquilaJuego(juego: Juego, periodo: Periodo): Alquiler {
-        return Alquiler(this, juego, periodo)
+        val alquiler = Alquiler(this, juego, periodo)
+        juegosAlquilados.add(alquiler)
+
+        return alquiler
+
     }
+
+    fun juegosDelMes(mes:Int): List<Juego> {
+        return juegosAlquilados
+            .filter { alquiler ->  alquiler.periodo.dataInicial.monthValue == mes}
+            .map { alquiler ->  alquiler.juego}
+    }
+
 
     companion object {
         fun crearGamer(lectura: Scanner): Gamer {
