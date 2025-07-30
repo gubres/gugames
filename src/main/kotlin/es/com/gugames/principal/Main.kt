@@ -31,10 +31,10 @@ fun main() {
             )
         }
         resultado.onFailure {
-            println("❌ es.com.gugames.modelo.Juego no encontrado. Intente con otro ID.")
+            println("❌ Juego no encontrado. Intente con otro ID.")
         }
         resultado.onSuccess {
-            println("Te gustaría insertar una descripción personalizada? S/N")
+            println("Te gustaría añadir una descripción personalizada para el juego? S/N")
             val opcion = lectura.nextLine()
             if (opcion.equals("s", true)) {
                 println("Inserte la descripción personalizada para el juego: ")

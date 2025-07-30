@@ -1,12 +1,14 @@
 package es.com.gugames.modelo
 
 import com.google.gson.annotations.Expose
+import java.math.BigDecimal
 
 data class Juego (
     @Expose val titulo: String,
     @Expose val portada: String): Recomendado {
     var descripcion: String? = null
     var precio = 0.0
+    var id = 0
 
     private val listadoNotas = mutableListOf<Int>()
     override val media: Double
@@ -20,9 +22,13 @@ data class Juego (
         titulo: String,
         portada: String,
         precio: Double,
-        descripcion: String): this(titulo, portada){
+        descripcion: String,
+        id: Int = 0
+       ): this(titulo, portada){
         this.precio = precio
         this.descripcion = descripcion
+        this.id = id
+
     }
 
     override fun toString(): String {
@@ -32,7 +38,8 @@ data class Juego (
                 "Precio: $precio \n" +
                 "Descripcion = $descripcion" +
                 "Precio: $precio \n" +
-                "Reputación: $media"
+                "Reputación: $media \n" +
+                "Id: $id"
 
     }
 

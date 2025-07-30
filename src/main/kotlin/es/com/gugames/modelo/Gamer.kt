@@ -1,5 +1,6 @@
 package es.com.gugames.modelo
 
+import formatoConDosCasasDecimales
 import java.util.Scanner
 import kotlin.random.Random
 
@@ -12,10 +13,11 @@ data class Gamer(var nombre: String, var email: String): Recomendado {
                 crearIdInterno()
             }
         }
+    var id = 0
     var idInterno: String? = null
         private set
 
-    var plano: Plano = PlanoSuelto("BRONCE")
+    var plan: Plan = PlanSuelto("BRONCE")
 
     val juegosBuscados = mutableListOf<Juego?>()
 
@@ -26,7 +28,7 @@ data class Gamer(var nombre: String, var email: String): Recomendado {
     val juegosRecomendados = mutableListOf<Juego>()
 
     override val media: Double
-        get() = listadoNotas.average()
+        get() = listadoNotas.average().formatoConDosCasasDecimales()
 
     override fun recomendar(nota: Int) {
         if (nota < 1 || nota > 10) {
@@ -40,10 +42,16 @@ data class Gamer(var nombre: String, var email: String): Recomendado {
         juego.recomendar(nota)
         juegosRecomendados.add(juego)
     }
-    constructor(nombre: String, email: String, fechaNacimiento: String, usuario: String):
+    constructor(
+        nombre: String,
+        email: String,
+        fechaNacimiento: String,
+        usuario: String,
+        id: Int = 0):
         this(nombre, email){
             this.fechaNacimiento = fechaNacimiento
             this.usuario = usuario
+            this.id = id
             crearIdInterno()
     }
 
@@ -61,7 +69,8 @@ data class Gamer(var nombre: String, var email: String): Recomendado {
                 "Fecha Nacimiento: $fechaNacimiento \n" +
                 "Usuario: $usuario \n" +
                 "Id Interno: $idInterno \n" +
-                "Reputación: $media."
+                "Reputación: $media \n" +
+                "Id: $id"
     }
 
     fun crearIdInterno(){
