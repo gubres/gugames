@@ -1,7 +1,6 @@
 package es.com.gugames.modelo
 
 import com.google.gson.annotations.Expose
-import java.math.BigDecimal
 
 data class Juego (
     @Expose val titulo: String,
@@ -22,7 +21,7 @@ data class Juego (
         titulo: String,
         portada: String,
         precio: Double,
-        descripcion: String,
+        descripcion: String?,
         id: Int = 0
        ): this(titulo, portada){
         this.precio = precio
