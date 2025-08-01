@@ -45,8 +45,8 @@ data class Gamer(var nombre: String, var email: String): Recomendado {
     constructor(
         nombre: String,
         email: String,
-        fechaNacimiento: String,
-        usuario: String,
+        fechaNacimiento: String?,
+        usuario: String?,
         id: Int = 0):
         this(nombre, email){
             this.fechaNacimiento = fechaNacimiento

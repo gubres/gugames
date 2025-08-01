@@ -3,29 +3,24 @@ package es.com.gugames.datos
 import es.com.gugames.modelo.Juego
 import javax.persistence.EntityManager
 
-class JuegosDAO(val manager: EntityManager) {
-    companion object {
-        fun getJuegos(manager: EntityManager): List<Juego> {
-                val query = manager.createQuery("FROM JuegoEntity", JuegoEntity::class.java)
-                return query.resultList.map { entity -> Juego(
-                    entity.titulo,
-                    entity.portada,
-                    entity.precio,
-                    entity.descripcion,
-                    entity.id) }
-        }
+class JuegosDAO(manager: EntityManager): DAO<Juego, JuegoEntity>(JuegoEntity::class.java, manager ) {
+
+    override fun toEntity(objeto: Juego): JuegoEntity {
+        return JuegoEntity(
+            objeto.titulo,
+            objeto.portada,
+            objeto.precio,
+            objeto.descripcion,
+            objeto.id)
     }
 
-    fun adicionarJuego(juego: Juego){
-       val entity = JuegoEntity(
-           juego.titulo,
-           juego.portada,
-           juego.precio,
-           juego.descripcion)
-        manager.transaction.begin()
-        manager.persist(entity)
-        manager.transaction.commit()
-
-
+    override fun toModel(entity: JuegoEntity): Juego {
+        return Juego(
+            entity.titulo,
+            entity.portada,
+            entity.precio,
+            entity.descripcion,
+            entity.id)
     }
+
 }
