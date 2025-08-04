@@ -9,6 +9,9 @@ data class Alquiler(
     var id = 0
 
     override fun toString(): String {
-        return "Alquiler del ${juego.titulo} por ${gamer.nombre} por el precio de $valorAlquiler€!"
+        return "Alquiler del " +
+                "${juego.titulo} por " +
+                "${gamer.nombre} por el precio de " +
+                "$valorAlquiler€!"
     }
 }

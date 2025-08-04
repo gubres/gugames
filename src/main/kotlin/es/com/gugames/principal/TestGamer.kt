@@ -1,21 +1,25 @@
+import es.com.gugames.datos.Banco
+import es.com.gugames.datos.GamersDAO
+import es.com.gugames.datos.PlanesDAO
 import es.com.gugames.modelo.Gamer
 
 
 fun main() {
-    val gamer1 = Gamer("Gustavo", "gustavo@l.com")
-    println(gamer1)
+    val gamer = Gamer(
+        "Monica",
+        "monica@mail.com",
+        "28/09/1990",
+        "moni")
+    val manager = Banco.getEntityManager()
+    val gamerDAO = GamersDAO(manager)
+    val planosDAO = PlanesDAO(manager)
+    gamer.plan = planosDAO.recuperarPeloId(3)
 
-    val gamer2 = Gamer("Mirena", "mirenita22@mail.com", "01/09/1998", "mirenita22")
-    println(gamer2)
+    gamerDAO.agregar(gamer)
 
-    gamer1.let {
-        it.fechaNacimiento = "28/09/1992"
-        it.usuario = "gubres"
-    }.also {
-        println(gamer1.idInterno )
-    }
 
-    println(gamer1)
-    gamer1.usuario = "gugu"
-    println(gamer1)
+    val listadoGamersBanco = gamerDAO.getListado()
+    println(listadoGamersBanco)
+
+    manager.close()
 }

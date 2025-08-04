@@ -1,31 +1,19 @@
 package es.com.gugames.datos
 
 import es.com.gugames.modelo.Gamer
-import es.com.gugames.modelo.GamerEntity
+import es.com.gugames.datos.GamerEntity
+import es.com.gugames.modelo.Juego
+import es.com.gugames.utilitario.toEntity
+import es.com.gugames.utilitario.toModel
 import javax.persistence.EntityManager
 
-class GamersDAO(private val manager: EntityManager) {
+class GamersDAO(manager: EntityManager): DAO<Gamer, GamerEntity>(GamerEntity::class.java, manager ) {
 
-    fun getGamers(): List<Gamer> {
-        val query = manager.createQuery("FROM GamerEntity", GamerEntity::class.java)
-        return query.resultList.map {
-            entity -> Gamer(
-            entity.nombre,
-            entity.email,
-            entity.fechaNacimiento,
-            entity.usuario,
-            entity.id) }
+    override fun toEntity(objeto: Gamer): GamerEntity {
+        return objeto.toEntity()
     }
 
-    fun agregarGamer(gamer: Gamer) {
-        val entity = GamerEntity(
-            gamer.id,
-            gamer.nombre,
-            gamer.email,
-            gamer.fechaNacimiento,
-            gamer.usuario)
-        manager.transaction.begin()
-        manager.persist(entity)
-        manager.transaction.commit()
+    override fun toModel(entity: GamerEntity): Gamer {
+        return entity.toModel().apply { plan = entity.plan.toModel() }
     }
 }

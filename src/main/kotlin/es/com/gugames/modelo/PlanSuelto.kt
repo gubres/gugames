@@ -1,6 +1,5 @@
 package es.com.gugames.modelo
 
-import java.math.BigDecimal
 
 class PlanSuelto(
     tipo: String,

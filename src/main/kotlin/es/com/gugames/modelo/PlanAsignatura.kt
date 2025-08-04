@@ -1,7 +1,5 @@
 package es.com.gugames.modelo
 
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 class PlanAsignatura (
     tipo:String,
