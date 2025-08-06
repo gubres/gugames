@@ -35,7 +35,7 @@ descripcion varchar(255),
 precio double
 )
 
-desc JUEGOS
+desc JUEGOS;
 
 insert into juegos(titulo, portada, precio, descripcion) values (
 'The Witcher 3: Wild Hunt',
